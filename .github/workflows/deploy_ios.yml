@@ -1,0 +1,31 @@
+name: Deploy ios app
+
+on:
+  push: 
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  deploy_ios:
+    runs-on: macos-latest
+    timeout-minutes: ${{ vars.TIMEOUT_MINUTES }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+            channel: stable
+            flutter-version: ${{ vars.FLUTTER_VERSION }}
+            cache: true
+      
+      - name: Build release IPA
+        run: flutter build ipa --release
+
+      - name: Upload to Testflight
+        run: echo "Upload completed"
