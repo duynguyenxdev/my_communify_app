@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:my_communify/features/auth/providers/auth_provider.dart';
+import 'package:my_communify/features/conversations/screens/conversations_screen.dart';
+import 'package:my_communify/features/profile/screens/profile_screen.dart';
+import 'package:my_communify/navigation/nav_path.dart';
+
+class DashboardScreen extends ConsumerStatefulWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final user = ref.watch(authProvider.select((s) => s.value?.user));
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My workspace'),
+        leading: Padding(
+          padding: EdgeInsetsGeometry.all(12),
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(user?.avatar ?? ''),
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.push(NavPath.userSearch);
+            },
+            icon: Icon(Icons.search),
+          ),
+        ],
+      ),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: [ConversationsScreen(), ProfileScreen()],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Messages'),
+          BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Profile'),
+        ],
+        onTap: (value) {
+          setState(() {
+            _currentIndex = value;
+          });
+        },
+      ),
+    );
+  }
+}
