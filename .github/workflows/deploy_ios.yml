@@ -11,7 +11,7 @@ on:
 jobs:
   deploy_ios:
     runs-on: macos-latest
-    timeout-minutes: ${{ vars.TIMEOUT_MINUTES }}
+    timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES) }}
 
     steps:
       - name: Checkout code
