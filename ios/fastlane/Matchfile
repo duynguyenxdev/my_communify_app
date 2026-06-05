@@ -1,0 +1,14 @@
+storage_mode("git")
+
+git_url("https://github.com/duynguyenxdev/mobile-code-signing.git")
+
+git_branch("my-communify")
+
+git_full_name("Code Signing Bot")
+
+git_user_email("codesigning.bot@gmail.com")
+
+type("appstore")
+
+username("duynguyendevx@gmail.com")
+

@@ -16,22 +16,58 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Push a new beta build to TestFlight"
-  lane :beta do
-    increment_build_number(xcodeproj: "Runner.xcodeproj")
+  desc "Build app"
+  lane :build do
+    signing
+
+    increment_build_number(
+      xcodeproj: "Runner.xcodeproj",
+      build_number: latest_testflight_build_number + 1
+    )
+
     build_app(
       workspace: "Runner.xcworkspace",
-      scheme: "Runner",
-      export_options: {
-        provisioningProfiles: {
-          "com.duynguyen.communify" => "my_communify_app_store_connect"
-        }
-      }
+      scheme: "Runner"
     )
-    upload_to_testflight
+
+    publish
   end
 
-  lane :hello do
-    puts "Hello world!"
+  desc "Publish app"
+  lane :publish do
+    upload_to_testflight(
+      api_key_path: ENV["APP_STORE_CONNECT_API_KEY_PATH"],
+      skip_waiting_for_build_processing: true
+    )
   end
+
+  desc "Sync ios signing (certificates & profiles)"
+  lane :signing do
+    match(
+      type: "appstore",
+      readonly: true
+    )
+  end
+
+  desc "Generate ios signing credentials (certificates & profiles)"
+  lane :generate_signing do
+    match(
+      type: "appstore",
+      api_key_path: ENV["APP_STORE_CONNECT_API_KEY_PATH"]
+    )
+  end
+
+  desc "Remove ios signing credentials (certificates & profiles)"
+  lane :remove_signing do
+    match_nuke(
+      type: "appstore",
+      api_key_path: ENV["APP_STORE_CONNECT_API_KEY_PATH"]
+    )
+  end
+
+  desc "Hello world"
+  lane :hello do
+    puts "hello world"
+  end
+
 end
