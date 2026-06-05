@@ -20,8 +20,8 @@ jobs:
             channel: stable
             flutter-version: ${{ vars.FLUTTER_VERSION }}
             cache: true
-            pub-cache-path: ~/.pub-cache
-            pub-cache-key: "pub-:os:-:arch:-:channel:-:version:-${{ hashFiles('**/pubspec.yaml', '**/pubspec.lock') }}"
+            # pub-cache-path: ~/.pub-cache
+            # pub-cache-key: "pub-:os:-:arch:-:channel:-:version:-${{ hashFiles('**/pubspec.yaml', '**/pubspec.lock') }}"
 
       - name: Get Flutter Dependencies
         if: steps.flutter-action.outputs.PUB-CACHE-HIT != 'true'
