@@ -3,7 +3,7 @@ name: Deploy ios app
 on:
   push: 
     branches:
-      - main
+      - ci/deploy-ios
       
 jobs:
   deploy:
@@ -20,9 +20,6 @@ jobs:
             channel: stable
             flutter-version: ${{ vars.FLUTTER_VERSION }}
             cache: true
-
-      - name: Get Flutter Dependencies
-        run: flutter pub get
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

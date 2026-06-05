@@ -3,7 +3,7 @@ name: Deploy android app
 on:
   push: 
     branches:
-      - ci/deploy-android
+      - main
       
 jobs:
   deploy_android:
