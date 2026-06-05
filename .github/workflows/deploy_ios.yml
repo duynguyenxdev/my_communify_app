@@ -4,28 +4,32 @@ on:
   push: 
     branches:
       - main
-  pull_request:
-    branches:
-      - main
       
 jobs:
   deploy_ios:
     runs-on: macos-latest
-    timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES) }}
+    timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_IOS) }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-            channel: stable
-            flutter-version: ${{ vars.FLUTTER_VERSION }}
-            cache: true
-      
-      - name: Build release IPA
-        run: flutter build ipa --release
+      # - name: Setup Flutter
+      #   uses: subosito/flutter-action@v2
+      #   with:
+      #       channel: stable
+      #       flutter-version: ${{ vars.FLUTTER_VERSION }}
+      #       cache: true
 
-      - name: Upload to Testflight
-        run: echo "Upload completed"
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4
+
+      - run: fastlane hello
+      
+      # - name: Build release IPA
+      #   run: flutter build ipa --release
+
+      # - name: Upload to Testflight
+      #   run: echo "Upload completed"

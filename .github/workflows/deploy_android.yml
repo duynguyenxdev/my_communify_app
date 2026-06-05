@@ -3,15 +3,12 @@ name: Deploy android app
 on:
   push: 
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - ci/deploy-android
       
 jobs:
   deploy_android:
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES) }}
+    timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_ANDROID) }}
 
     steps:
       - name: Checkout code
