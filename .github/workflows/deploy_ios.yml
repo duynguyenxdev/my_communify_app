@@ -27,16 +27,16 @@ jobs:
         if: steps.flutter-action.outputs.PUB-CACHE-HIT != 'true'
         run: flutter pub get
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ vars.RUBY_VERSION }}
+      # - name: Setup Ruby
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: ${{ vars.RUBY_VERSION }}
 
-      - name: Build iOS
-        run: |
-          cd ios
-          bundle install
-          bundle exec fastlane hello
+      # - name: Build iOS
+      #   run: |
+      #     cd ios
+      #     bundle install
+      #     bundle exec fastlane hello
       
       # - name: Build release IPA
       #   run: flutter build ipa --release
