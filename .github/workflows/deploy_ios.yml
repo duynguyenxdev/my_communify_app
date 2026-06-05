@@ -26,7 +26,7 @@ jobs:
         with:
           ruby-version: 3.4
 
-      - run: fastlane hello
+      - run: bundle exec fastlane hello
       
       # - name: Build release IPA
       #   run: flutter build ipa --release
