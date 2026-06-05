@@ -20,23 +20,20 @@ jobs:
             channel: stable
             flutter-version: ${{ vars.FLUTTER_VERSION }}
             cache: true
-            pub-cache: false
-            # pub-cache-path: ~/.pub-cache
-            # pub-cache-key: "pub-:os:-:arch:-:channel:-:version:-${{ hashFiles('**/pubspec.yaml', '**/pubspec.lock') }}"
 
       - name: Get Flutter Dependencies
         run: flutter pub get
 
-      # - name: Setup Ruby
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     ruby-version: ${{ vars.RUBY_VERSION }}
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ vars.RUBY_VERSION }}
+          bundler-cache: true
 
-      # - name: Build iOS
-      #   run: |
-      #     cd ios
-      #     bundle install
-      #     bundle exec fastlane hello
+      - name: Build iOS
+        run: |
+          cd ios
+          bundle exec fastlane hello
       
       # - name: Build release IPA
       #   run: flutter build ipa --release
