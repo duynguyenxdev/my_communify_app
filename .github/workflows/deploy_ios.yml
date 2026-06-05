@@ -6,12 +6,12 @@ on:
       - main
       
 jobs:
-  deploy_ios:
+  deploy:
     runs-on: macos-latest
     timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_IOS) }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v6
 
       - name: Setup Flutter
@@ -30,13 +30,7 @@ jobs:
           ruby-version: ${{ vars.RUBY_VERSION }}
           bundler-cache: true
 
-      - name: Build iOS
+      - name: Build & upload to Testflight
         run: |
           cd ios
-          bundle exec fastlane hello
-      
-      # - name: Build release IPA
-      #   run: flutter build ipa --release
-
-      # - name: Upload to Testflight
-      #   run: echo "Upload completed"
+          bundle exec fastlane build

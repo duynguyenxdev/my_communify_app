@@ -65,9 +65,4 @@ platform :ios do
     )
   end
 
-  desc "Hello world"
-  lane :hello do
-    puts "hello world"
-  end
-
 end
