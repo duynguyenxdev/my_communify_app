@@ -24,7 +24,7 @@ jobs:
             # pub-cache-key: "pub-:os:-:arch:-:channel:-:version:-${{ hashFiles('**/pubspec.yaml', '**/pubspec.lock') }}"
 
       - name: Get Flutter Dependencies
-        if: steps.flutter-action.outputs.PUB-CACHE-HIT != 'true'
+        # if: steps.flutter-action.outputs.PUB-CACHE-HIT != 'true'
         run: flutter pub get
 
       # - name: Setup Ruby
