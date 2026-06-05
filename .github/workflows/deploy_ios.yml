@@ -33,8 +33,7 @@ jobs:
       - name: Build & Upload to Testflight
         run: |
           cd ios
-          echo "api key path: ${{ env.APP_STORE_CONNECT_API_KEY_PATH }}"
-          echo "${{ secrets.APP_STORE_CONNECT_API_KEY }}"" > ${{ env.APP_STORE_CONNECT_API_KEY_PATH }}
+          echo "${{ secrets.APP_STORE_CONNECT_API_KEY }}" > ${{ env.APP_STORE_CONNECT_API_KEY_PATH }}
           bundle exec fastlane build
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
