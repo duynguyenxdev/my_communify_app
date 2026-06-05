@@ -21,8 +21,11 @@ jobs:
             flutter-version: ${{ vars.FLUTTER_VERSION }}
             cache: true
 
+      - name: Get Flutter Dependencies
+        run: flutter pub get
+
       - name: Build release APK
-        run: flutter build apk --release
+        run: flutter build apk --release --no-pub
 
       - name: Upload to Firebase App Distribution
         run: echo "Upload completed"
