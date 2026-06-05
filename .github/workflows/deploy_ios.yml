@@ -28,6 +28,7 @@ jobs:
 
       - run: |
           cd ios
+          bundle install
           bundle exec fastlane hello
       
       # - name: Build release IPA
