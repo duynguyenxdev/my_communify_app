@@ -36,7 +36,7 @@ jobs:
         run: |
           cd android/app
           echo "${{ secrets.ANDROID_KEY_STORE }}" > upload-keystore.txt
-          base64 -d -i upload-keystore.txt -o upload-keystore.jks
+          base64 -d upload-keystore.txt > upload-keystore.jks
           cd ..
           echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}' > service_account.json
           echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> key.properties
