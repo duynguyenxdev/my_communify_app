@@ -31,7 +31,6 @@ platform :android do
 
     firebase_app_distribution(
       app: ENV["FIREBASE_ANDROID_APP_ID"],
-      service_credentials_file: "./service_account.json",
       android_artifact_type: "APK",
       apk_path: "./app/release/app-release.apk",
       release_notes: "Test build",
