@@ -32,7 +32,7 @@ platform :android do
     firebase_app_distribution(
       app: ENV["FIREBASE_ANDROID_APP_ID"],
       android_artifact_type: "APK",
-      apk_path: "./app/release/app-release.apk",
+      apk_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
       release_notes: "Test build",
       groups: "internal"
     )

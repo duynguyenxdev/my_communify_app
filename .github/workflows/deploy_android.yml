@@ -34,7 +34,7 @@ jobs:
 
       - name: Build & Upload APK to Firebase App Distribution
         run: |
-          flutter build apk --config-only
+          flutter build apk --config-only --no-pub
 
           cd android/app
 
