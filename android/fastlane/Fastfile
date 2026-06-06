@@ -18,6 +18,12 @@ default_platform(:android)
 platform :android do
   desc "Build & Upload APK to Firebase App Distribution"
   lane :build do
+    latest_release = firebase_app_distribution_get_latest_release(
+      app: ENV["FIREBASE_ANDROID_APP_ID"]
+    )
+
+    increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+
     build_android_app(
       task: "assemble",
       build_type: "Release"

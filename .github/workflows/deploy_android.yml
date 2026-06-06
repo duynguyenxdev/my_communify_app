@@ -34,18 +34,21 @@ jobs:
 
       - name: Build & Upload APK to Firebase App Distribution
         run: |
+          flutter build apk --config-only
+
           cd android/app
+
           echo "${{ secrets.ANDROID_KEY_STORE }}" > upload-keystore.txt
           base64 -d upload-keystore.txt > upload-keystore.jks
+
           cd ..
+
           echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}' > service_account.json
           echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> key.properties
           echo "storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" >> key.properties
           echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
           echo "storeFile=upload-keystore.jks" >> key.properties
+
           bundle exec fastlane build
         env:
           FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
-
-      - name: Upload to Firebase App Distribution
-        run: echo "Upload completed"
