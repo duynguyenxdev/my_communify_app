@@ -30,7 +30,9 @@ android {
         applicationId = "com.duynguyen.communify"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
+
+        val ciVersionCode = project.findProperty("versionCode")?.toString()?.toIntOrNull()
+        versionCode = ciVersionCode ?: flutter.versionCode
         versionName = flutter.versionName
     }
 

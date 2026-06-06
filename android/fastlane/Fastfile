@@ -22,11 +22,14 @@ platform :android do
       app: ENV["FIREBASE_ANDROID_APP_ID"]
     )
 
-    increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+    newVersionCode = latest_release[:buildVersion].to_i + 1
 
     build_android_app(
       task: "assemble",
-      build_type: "Release"
+      build_type: "Release",
+      properties: {
+        "versionCode" => newVersionCode
+      }
     )
 
     firebase_app_distribution(
