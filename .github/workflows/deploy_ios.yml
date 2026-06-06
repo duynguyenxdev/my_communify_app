@@ -9,6 +9,8 @@ jobs:
   deploy:
     runs-on: macos-latest
     timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_IOS) }}
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/ios/Gemfile
 
     steps:
       - name: Checkout Code

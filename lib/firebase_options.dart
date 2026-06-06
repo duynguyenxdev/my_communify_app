@@ -51,22 +51,21 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC_j5EJDvwzhstIc4bwb2D8Zsj_xr47dY0',
-    appId: '1:1046627275582:android:2c362a5894d6b46717126f',
-    messagingSenderId: '1046627275582',
-    projectId: 'my-workspace-cc686',
-    storageBucket: 'my-workspace-cc686.firebasestorage.app',
+    apiKey: 'AIzaSyBAF4aEsizFiALOaD1d84vCljeU4Q6CS4s',
+    appId: '1:319897219754:android:08be9a21a98747a68196d3',
+    messagingSenderId: '319897219754',
+    projectId: 'my-communify',
+    storageBucket: 'my-communify.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBfqp_fVmjBzCGQXumnBtosP44tNsoNqlY',
-    appId: '1:1046627275582:ios:9c8620771b7555dd17126f',
-    messagingSenderId: '1046627275582',
-    projectId: 'my-workspace-cc686',
-    storageBucket: 'my-workspace-cc686.firebasestorage.app',
-    androidClientId: '1046627275582-4mc29n5t5du3phk0ckiv7nvtq8s6i54d.apps.googleusercontent.com',
-    iosClientId: '1046627275582-p9cb8i7ii644st6b4nhrp0ei56it2igm.apps.googleusercontent.com',
-    iosBundleId: 'com.duynguyen.myworkspace',
+    apiKey: 'AIzaSyACY4V5bBIFf_trkn3xsIzyUVBLAq28nls',
+    appId: '1:319897219754:ios:921674c575728a1e8196d3',
+    messagingSenderId: '319897219754',
+    projectId: 'my-communify',
+    storageBucket: 'my-communify.firebasestorage.app',
+    iosClientId: '319897219754-gsmkp2s732r3kslcncitajotuepun9fv.apps.googleusercontent.com',
+    iosBundleId: 'com.duynguyen.communify',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(

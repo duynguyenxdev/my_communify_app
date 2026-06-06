@@ -9,6 +9,8 @@ jobs:
   deploy_android:
     runs-on: ubuntu-latest
     timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_ANDROID) }}
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/android/Gemfile
 
     steps:
       - name: Checkout code
@@ -24,8 +26,26 @@ jobs:
       - name: Get Flutter Dependencies
         run: flutter pub get
 
-      - name: Build release APK
-        run: flutter build apk --release --no-pub
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ vars.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Build & Upload APK to Firebase App Distribution
+        run: |
+          cd android/app
+          echo "${{ secrets.ANDROID_KEY_STORE }}" > upload-keystore.txt
+          base64 -d -i upload-keystore.txt -o upload-keystore.jks
+          cd ..
+          echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}' > service_account.json
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> key.properties
+          echo "storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" >> key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
+          echo "storeFile=upload-keystore.jks" >> key.properties
+          bundle exec fastlane build
+        env:
+          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
 
       - name: Upload to Firebase App Distribution
         run: echo "Upload completed"
