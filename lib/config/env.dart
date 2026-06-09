@@ -8,4 +8,6 @@ abstract class Env {
     'WEB_SOCKET_URL',
     defaultValue: 'http://localhost:3000',
   );
+
+  static const googleClientId = String.fromEnvironment('GOOGLE_CLIENT_ID');
 }

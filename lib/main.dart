@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_communify/app.dart';
+import 'package:my_communify/config/env.dart';
 import 'package:my_communify/core/di/di.dart';
 import 'package:my_communify/core/storage/secure_storage.dart';
 import 'package:my_communify/core/storage/local_storage.dart';
@@ -27,10 +28,7 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  await GoogleSignIn.instance.initialize(
-    clientId:
-        '1046627275582-eo690khipq7bhi5mourguf6poomiur0r.apps.googleusercontent.com',
-  );
+  await GoogleSignIn.instance.initialize(clientId: Env.googleClientId);
 
   runApp(ProviderScope(child: const App()));
 }
