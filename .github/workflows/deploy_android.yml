@@ -12,6 +12,7 @@ on:
       - 'lib/**'
       - 'assets/**'
       - 'android/**'
+      - '.github/workflows/deploy_android.yml'
   push:
     branches:
       - main

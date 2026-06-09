@@ -22,6 +22,7 @@ on:
       - 'lib/**'
       - 'assets/**'
       - 'ios/**'
+      - '.github/workflows/deploy_ios.yml'
       
 jobs:
   deploy:
