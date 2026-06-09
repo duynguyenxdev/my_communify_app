@@ -3,7 +3,7 @@ name: Deploy ios app
 on:
   push: 
     branches:
-      - ci/deploy-ios
+      - main
       
 jobs:
   deploy:
