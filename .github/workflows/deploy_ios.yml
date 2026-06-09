@@ -69,6 +69,8 @@ jobs:
           echo "BASE_URL=${{ vars.BASE_URL }}" >> .env
           echo "BASE_URL=${{ vars.WEB_SOCKET_URL }}" >> .env
 
+          # Build and upload
+          cd ${{ github.workspace }}/ios
           bundle exec fastlane build_and_upload_to_testflight
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
