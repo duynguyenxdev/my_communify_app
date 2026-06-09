@@ -1,16 +1,15 @@
 name: Deploy android app
 
 on:
-  push: 
-    branches:
-      - ci-test/android
-  pull_request:
-    types: [closed]
+  pull_request: 
     branches:
       - main
+    types:
+      - closed
       
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_ANDROID) }}
     env:
