@@ -31,7 +31,7 @@ platform :ios do
     build_number = latest_testflight_build_number + 1
     puts "Build number: #{build_number}"
 
-    sh("flutter build ipa --release --dart-define-from-file=.env --build-number=#{build_number} --no-codesign")
+    sh("flutter build ipa --release --dart-define-from-file=.env --build-number=#{build_number} --no-codesign --no-pub")
 
     build_app(
       workspace: "Runner.xcworkspace",
