@@ -94,6 +94,7 @@ jobs:
           cd ${{ github.workspace }}
           echo "BASE_URL=${{ vars.BASE_URL }}" >> .env
           echo "BASE_URL=${{ vars.WEB_SOCKET_URL }}" >> .env
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
 
           # Build and upload
           cd ${{ github.workspace }}/ios
