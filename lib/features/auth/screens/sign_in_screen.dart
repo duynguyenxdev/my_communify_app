@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_communify/core/widgets/button/app_solid_button.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:my_communify/assets/app_icons.dart';
+import 'package:my_communify/core/widgets/button/button.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 
 class SignInScreen extends ConsumerWidget {
@@ -10,11 +12,22 @@ class SignInScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
-        child: AppSolidButton(
-          onTap: () async {
-            await ref.read(authProvider.notifier).signInWithGoogle();
-          },
-          title: 'Sign in with Google',
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome to My communify!',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            SizedBox(height: 24),
+            Button(
+              onTap: () async {
+                await ref.read(authProvider.notifier).signInWithGoogle();
+              },
+              title: 'Sign in with Google',
+              prefix: SvgPicture.asset(AppIcons.google),
+            ),
+          ],
         ),
       ),
     );

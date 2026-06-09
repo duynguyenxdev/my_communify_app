@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_communify/core/widgets/button/app_solid_button.dart';
+import 'package:my_communify/core/widgets/button/button.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -18,7 +18,7 @@ class ProfileScreen extends ConsumerWidget {
             CircleAvatar(backgroundImage: NetworkImage(user?.avatar ?? '')),
             Text('Full name: ${user?.fullName}'),
             Text('Email: ${user?.email}'),
-            AppSolidButton(
+            Button(
               title: 'Logout',
               onTap: () async {
                 await ref.read(authProvider.notifier).signOut();
