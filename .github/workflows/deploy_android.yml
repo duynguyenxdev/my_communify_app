@@ -3,10 +3,14 @@ name: Deploy android app
 on:
   push: 
     branches:
+      - ci-test/android
+  pull_request:
+    types: [closed]
+    branches:
       - main
       
 jobs:
-  deploy_android:
+  deploy:
     runs-on: ubuntu-latest
     timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_ANDROID) }}
     env:
@@ -31,6 +35,21 @@ jobs:
         with:
           ruby-version: ${{ vars.RUBY_VERSION }}
           bundler-cache: true
+      
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            TITLE="${{ github.event.pull_request.title }}"
+            BODY="${{ github.event.pull_request.body }}"
+            RELEASE_NOTES=$(printf "PR: %s\n\n%s" "$TITLE" "$BODY")
+          else
+            RELEASE_NOTES=$(git log -1 --pretty=%B)
+          fi
+
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Build & Upload APK to Firebase App Distribution
         run: |
@@ -51,6 +70,7 @@ jobs:
           echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
           echo "storeFile=upload-keystore.jks" >> key.properties
 
-          bundle exec fastlane build
+          bundle exec fastlane build_and_upload_to_firebase_app_distribution
         env:
           FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          RELEASE_NOTES: ${{ steps.release_notes.outputs.changelog }}
