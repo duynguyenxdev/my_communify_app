@@ -1,15 +1,3 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
@@ -20,23 +8,21 @@ platform :android do
   lane :build_and_upload_to_firebase_app_distribution do
     release_notes = ENV["RELEASE_NOTES"] || "Automated build from Github Actions."
 
+    puts "Release notes:\n#{release_notes}"
+
     latest_release = firebase_app_distribution_get_latest_release(
       app: ENV["FIREBASE_ANDROID_APP_ID"]
     )
 
-    newVersionCode = 1
+    build_number = 1
     if latest_release
-      newVersionCode = latest_release[:buildVersion].to_i + 1
+      build_number = latest_release[:buildVersion].to_i + 1
     end
-    
-    build_android_app(
-      task: "assemble",
-      build_type: "Release",
-      properties: {
-        "versionCode" => newVersionCode
-      }
-    )
 
+    puts "Build number: #{build_number}"
+
+    sh("flutter build apk --release --dart-define-from-file=.env --build-number=#{build_number} --no-pub")
+   
     firebase_app_distribution(
       app: ENV["FIREBASE_ANDROID_APP_ID"],
       android_artifact_type: "APK",

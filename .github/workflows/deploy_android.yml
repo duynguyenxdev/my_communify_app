@@ -15,6 +15,7 @@ jobs:
     if: github.event.pull_request.merged == true || github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_ANDROID) }}
+    environment: production
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/android/Gemfile
 
@@ -55,23 +56,26 @@ jobs:
 
       - name: Build & Upload APK to Firebase App Distribution
         run: |
-          flutter build apk --config-only --no-pub
-
+          # Signing APK
           cd android/app
-
           echo "${{ secrets.ANDROID_KEY_STORE }}" > upload-keystore.txt
           base64 -d upload-keystore.txt > upload-keystore.jks
-
           cd ..
-
-          echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}' > service_account.json
-          export GOOGLE_APPLICATION_CREDENTIALS=service_account.json
-
           echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> key.properties
           echo "storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" >> key.properties
           echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
           echo "storeFile=upload-keystore.jks" >> key.properties
 
+          # Setup google credentials for firebase app distribution
+          echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}' > service_account.json
+          export GOOGLE_APPLICATION_CREDENTIALS=service_account.json
+
+          # Setup flutter dart define
+          cd ${{ github.workspace }}
+          echo "BASE_URL=${{ vars.BASE_URL }}" >> .env
+          echo "BASE_URL=${{ vars.WEB_SOCKET_URL }}" >> .env
+
+          # Build and upload
           bundle exec fastlane build_and_upload_to_firebase_app_distribution
         env:
           FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
