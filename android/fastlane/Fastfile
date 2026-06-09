@@ -11,7 +11,7 @@
 #
 
 # Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+update_fastlane
 
 default_platform(:android)
 
@@ -24,8 +24,11 @@ platform :android do
       app: ENV["FIREBASE_ANDROID_APP_ID"]
     )
 
-    newVersionCode = latest_release[:buildVersion].to_i + 1
-
+    newVersionCode = 1
+    if latest_release
+      newVersionCode = latest_release[:buildVersion].to_i + 1
+    end
+    
     build_android_app(
       task: "assemble",
       build_type: "Release",
