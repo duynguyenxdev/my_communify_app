@@ -20,6 +20,7 @@ platform :ios do
   lane :build do
     keychain_name = "github_ci_keychain"
     keychain_password = "github_ci_password"
+    release_notes = ENV["RELEASE_NOTES"] || "Automated build from Github Actions."
 
     create_keychain(
       name: keychain_name,
@@ -47,14 +48,10 @@ platform :ios do
       scheme: "Runner"
     )
 
-    publish
-  end
-
-  desc "Publish app"
-  lane :publish do
     upload_to_testflight(
       api_key_path: ENV["APP_STORE_CONNECT_API_KEY_PATH"],
-      skip_waiting_for_build_processing: true
+      skip_waiting_for_build_processing: true,
+      changelog: release_notes
     )
   end
 
