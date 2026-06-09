@@ -6,9 +6,21 @@ on:
       - main
     types:
       - closed
+    paths:
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'lib/**'
+      - 'assets/**'
+      - 'android/**'
   push:
     branches:
       - main
+    paths:
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'lib/**'
+      - 'assets/**'
+      - 'android/**'
       
 jobs:
   deploy:
