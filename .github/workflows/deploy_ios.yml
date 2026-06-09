@@ -65,7 +65,7 @@ jobs:
           flutterfire configure \
             --yes \
             --project="${{ secrets.FIREBASE_PROJECT_ID }}" \
-            --platforms="android,ios"
+            --platforms="ios"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
