@@ -63,6 +63,12 @@ jobs:
         run: |
           cd ${{ github.workspace }}/ios
           echo '${{ secrets.APP_STORE_CONNECT_API_KEY }}' > ${{ env.APP_STORE_CONNECT_API_KEY_PATH }}
+
+          # Setup flutter dart define
+          cd ${{ github.workspace }}
+          echo "BASE_URL=${{ vars.BASE_URL }}" >> .env
+          echo "BASE_URL=${{ vars.WEB_SOCKET_URL }}" >> .env
+
           bundle exec fastlane build_and_upload_to_testflight
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
