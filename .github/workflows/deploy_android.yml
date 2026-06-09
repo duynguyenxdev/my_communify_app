@@ -70,7 +70,7 @@ jobs:
           echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
           echo "storeFile=upload-keystore.jks" >> key.properties
 
-          bundle exec fastlane build
+          bundle exec fastlane build_and_upload_to_firebase_app_distribution
         env:
           FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
           RELEASE_NOTES: ${{ steps.release_notes.outputs.changelog }}
