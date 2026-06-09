@@ -17,7 +17,9 @@ default_platform(:android)
 
 platform :android do
   desc "Build & Upload APK to Firebase App Distribution"
-  lane :build do
+  lane :build_and_upload_to_firebase_app_distribution do
+    release_notes = ENV["RELEASE_NOTES"] || "Automated build from Github Actions."
+
     latest_release = firebase_app_distribution_get_latest_release(
       app: ENV["FIREBASE_ANDROID_APP_ID"]
     )
@@ -36,7 +38,7 @@ platform :android do
       app: ENV["FIREBASE_ANDROID_APP_ID"],
       android_artifact_type: "APK",
       apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
-      release_notes: "Test build",
+      release_notes: release_notes,
       groups: "internal"
     )
   end
