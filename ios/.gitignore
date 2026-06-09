@@ -38,3 +38,6 @@ fastlane/report.xml
 fastlane/README.md
 fastlane/.env
 fastlane/app_store_connect_api_key.json
+
+*.dSYM.zip
+*.ipa

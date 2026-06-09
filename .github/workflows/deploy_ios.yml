@@ -15,6 +15,7 @@ jobs:
     if: github.event.pull_request.merged == true || github.event_name == 'push'
     runs-on: macos-latest
     timeout-minutes: ${{ fromJSON(vars.TIMEOUT_MINUTES_IOS) }}
+    environment: production
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/ios/Gemfile
 
@@ -60,12 +61,15 @@ jobs:
 
       - name: Build & Upload to Testflight
         run: |
-          flutter build ios --config-only --no-codesign --no-pub
-          cd ios
+          cd ${{ github.workspace }}/ios
           echo '${{ secrets.APP_STORE_CONNECT_API_KEY }}' > ${{ env.APP_STORE_CONNECT_API_KEY_PATH }}
-          bundle exec fastlane build
+          bundle exec fastlane build_and_upload_to_testflight
         env:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           APP_STORE_CONNECT_API_KEY_PATH: ${{ github.workspace }}/app_store_connect_api_key.json
           RELEASE_NOTES: ${{ steps.release_notes.outputs.changelog }}
+          IOS_BUNDLE_ID: ${{ secrets.IOS_BUNDLE_ID }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
