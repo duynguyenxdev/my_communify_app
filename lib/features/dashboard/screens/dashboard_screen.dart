@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_communify/assets/app_icons.dart';
+import 'package:my_communify/assets/assets.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 import 'package:my_communify/features/conversations/screens/conversations_screen.dart';
 import 'package:my_communify/features/dashboard/widgets/bottom_bar.dart';
@@ -31,14 +31,14 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         index: 0,
         selectedIndex: _currentIndex,
         label: 'Messages',
-        iconPath: AppIcons.messages,
+        iconPath: Assets.icon.messages,
         onTap: _onTap,
       ),
       BottomBarItem(
         index: 1,
         selectedIndex: _currentIndex,
         label: 'Settings',
-        iconPath: AppIcons.settings,
+        iconPath: Assets.icon.settings,
         onTap: _onTap,
       ),
     ];
@@ -62,14 +62,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             ),
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.push(NavPath.userSearch);
-            },
-            icon: Icon(Icons.search),
-          ),
-        ],
       ),
       body: IndexedStack(
         index: _currentIndex,

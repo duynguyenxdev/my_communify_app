@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_communify/core/widgets/button/button.dart';
+import 'package:my_communify/core/widgets/layout/screen.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -9,18 +10,10 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authProvider.select((state) => state.value?.user));
-    final viewPadding = MediaQuery.of(context).padding;
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Profile')),
-      body: Container(
-        width: double.infinity,
-        padding: EdgeInsets.only(
-          bottom: viewPadding.bottom,
-          top: 16,
-          left: 16,
-          right: 16,
-        ),
+    return Screen(
+      title: 'Profile',
+      child: SizedBox.expand(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

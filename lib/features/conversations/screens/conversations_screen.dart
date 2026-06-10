@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_communify/features/conversations/widgets/conversations_empty.dart';
 
 class ConversationsScreen extends StatelessWidget {
   const ConversationsScreen({super.key});
@@ -6,7 +7,7 @@ class ConversationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Messages screen')),
+      body: ConversationsEmpty(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Icon(Icons.add),

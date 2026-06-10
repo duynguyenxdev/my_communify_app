@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_communify/assets/assets.dart';
+import 'package:my_communify/core/theme/colors/app_color.dart';
+import 'package:my_communify/core/widgets/image/svg_image.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 import 'package:my_communify/navigation/nav_path.dart';
 
@@ -24,7 +27,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         if (state.status == .authenticated) {
           context.go(NavPath.dashboard);
         } else {
-          context.go(NavPath.signIn);
+          context.replace(NavPath.signIn);
         }
       },
       error: (error, stackTrace) {
@@ -35,8 +38,36 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColor.watch(ref);
     ref.listen(authProvider, _authListener);
 
-    return Scaffold(body: Center(child: Text('Splash Screen')));
+    return Scaffold(
+      body: SizedBox.expand(
+        child: Container(
+          color: colors.primary,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgImage(
+                  Assets.icon.launcherForeground,
+                  color: Colors.white,
+                  height: 72,
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'My Communify',
+                  style: TextStyle(
+                    fontWeight: .w600,
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

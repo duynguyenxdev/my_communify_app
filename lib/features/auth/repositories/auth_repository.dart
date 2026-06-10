@@ -28,11 +28,18 @@ class AuthRepository {
         Ok(value: final data) => Ok(AuthResponse.fromJson(data)),
         Error(value: final failure) => Error(failure),
       };
+    } on GoogleSignInException catch (googleError) {
+      return Error(
+        ApiException(
+          code: googleError.code.name,
+          message: 'Failed to authenticate google account',
+        ),
+      );
     } catch (error) {
       return Error(
         ApiException(
-          code: ErrorCode.invalidCredentials,
-          message: 'Failed to authenticate google account',
+          code: ErrorCode.unknown,
+          message: 'Failed to authenticate google account: $error',
         ),
       );
     }

@@ -39,8 +39,9 @@ class Button extends ConsumerWidget {
             borderRadius: borderRadius,
           ),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: .min,
+            mainAxisAlignment: .center,
+            crossAxisAlignment: .center,
             children: [
               if (prefix != null)
                 Padding(padding: EdgeInsets.only(right: 8), child: prefix!),
@@ -50,7 +51,7 @@ class Button extends ConsumerWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: .w500,
-                  fontSize: 14,
+                  fontSize: 15,
                 ),
               ),
             ],

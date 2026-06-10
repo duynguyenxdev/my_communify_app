@@ -10,6 +10,7 @@ ThemeData get themeData => ThemeData(
       fontWeight: FontWeight.w500,
       fontSize: 18,
     ),
+    centerTitle: true,
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Colors.green,
@@ -17,5 +18,8 @@ ThemeData get themeData => ThemeData(
     shape: CircleBorder(),
     elevation: 12,
     splashColor: Colors.green.withAlpha(20),
+  ),
+  switchTheme: SwitchThemeData(
+    trackColor: WidgetStatePropertyAll(Colors.green),
   ),
 );

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_communify/config/app_config.dart';
 import 'package:my_communify/core/theme/theme.dart';
 import 'package:my_communify/core/theme/theme_provider.dart';
-import 'package:my_communify/features/auth/providers/auth_provider.dart';
 import 'package:my_communify/navigation/router.dart';
 
 class App extends ConsumerStatefulWidget {
@@ -16,16 +15,10 @@ class App extends ConsumerStatefulWidget {
 class _AppState extends ConsumerState<App> {
   @override
   Widget build(BuildContext context) {
-    final isAuthenticated = ref.watch(
-      authProvider.select((state) => state.value?.isAuthenticated ?? false),
-    );
-
-    final router = isAuthenticated
-        ? authenticatedRouter
-        : unauthenticatedRouter;
-
     final themeMode =
         ref.watch(themeProvider.select((s) => s.value?.themeMode)) ?? .light;
+
+    final router = ref.read(routerProvider);
 
     return MaterialApp.router(
       title: AppConfig.title,

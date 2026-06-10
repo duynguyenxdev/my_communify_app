@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_communify/core/di/di.dart';
 import 'package:my_communify/core/models/exception.dart';
@@ -25,10 +26,11 @@ class AuthState extends Equatable {
   List<Object?> get props => [accessToken, user, status];
 }
 
-class AuthNotififer extends AsyncNotifier<AuthState> {
+class AuthNotififer extends AsyncNotifier<AuthState> implements Listenable {
   final _authService = di.get<AuthRepository>();
   final _apiClient = di.get<ApiClient>();
   final _secureStorage = di.get<SecureStorage>();
+  final _listeners = <VoidCallback>[];
 
   @override
   FutureOr<AuthState> build() {
@@ -40,6 +42,7 @@ class AuthNotififer extends AsyncNotifier<AuthState> {
 
     if (accessToken == null) {
       state = AsyncValue.data(AuthState(status: AuthStatus.unauthenticated));
+      notifyListeners();
       return;
     }
 
@@ -82,7 +85,9 @@ class AuthNotififer extends AsyncNotifier<AuthState> {
       _secureStorage.remove(SecureStorageKey.accessToken),
     ]);
 
-    state = AsyncValue.data(AuthState());
+    state = AsyncValue.data(AuthState(status: .unauthenticated));
+
+    notifyListeners();
   }
 
   void _onAuthSuccess(AuthResponse auth) async {
@@ -99,10 +104,30 @@ class AuthNotififer extends AsyncNotifier<AuthState> {
         user: auth.user,
       ),
     );
+
+    notifyListeners();
   }
 
   void _onAuthFailure(AppException failure) async {
     state = AsyncValue.error(failure, StackTrace.current);
+    notifyListeners();
+  }
+
+  @override
+  void addListener(VoidCallback listener) {
+    _listeners.add(listener);
+  }
+
+  @override
+  void removeListener(VoidCallback listener) {
+    _listeners.remove(listener);
+  }
+
+  void notifyListeners() {
+    if (_listeners.isEmpty) return;
+    for (final listener in _listeners) {
+      listener();
+    }
   }
 }
 

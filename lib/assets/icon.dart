@@ -1,0 +1,10 @@
+part of 'assets.dart';
+
+class _IconAsset {
+  const _IconAsset();
+
+  final google = 'assets/icons/ic_google.svg';
+  final messages = 'assets/icons/ic_messages.svg';
+  final settings = 'assets/icons/ic_settings.svg';
+  final launcherForeground = 'assets/icons/ic_launcher_foreground.svg';
+}

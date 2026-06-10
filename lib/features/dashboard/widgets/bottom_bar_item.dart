@@ -33,7 +33,7 @@ class BottomBarItem extends ConsumerWidget {
         splashColor: colors.primary.withAlpha(20),
         highlightColor: colors.primary.withAlpha(30),
         child: Padding(
-          padding: EdgeInsets.only(bottom: viewPadding.bottom, top: 16),
+          padding: EdgeInsets.only(bottom: viewPadding.bottom + 16, top: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

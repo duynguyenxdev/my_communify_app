@@ -10,7 +10,7 @@ import 'package:my_communify/features/user_search/screens/user_search_screen.dar
 import 'package:my_communify/navigation/nav_path.dart';
 import 'package:my_communify/utils/parsers.dart';
 
-final unauthenticatedRoutes = <GoRoute>[
+final routes = <GoRoute>[
   GoRoute(
     path: NavPath.splash,
     builder: (context, state) {
@@ -23,9 +23,6 @@ final unauthenticatedRoutes = <GoRoute>[
       return NoTransitionPage(child: SignInScreen());
     },
   ),
-];
-
-final authenticatedRoutes = <GoRoute>[
   GoRoute(
     path: NavPath.profile,
     builder: (context, state) {
