@@ -22,7 +22,7 @@ void main() async {
   if (isFirstRun != true) {
     await Future.wait([
       di.get<SecureStorage>().clear(),
-      sharedPrefsService.setBool(LocalStorageKey.isFirstRun, true),
+      sharedPrefsService.setBool(.isFirstRun, true),
     ]);
   }
 

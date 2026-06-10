@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_communify/core/theme/colors/app_color.dart';
 
-class Button extends StatelessWidget {
-  const Button({super.key, required this.title, this.onTap, this.prefix});
+class Button extends ConsumerWidget {
+  const Button({
+    super.key,
+    required this.title,
+    this.onTap,
+    this.prefix,
+    this.fullWidth = false,
+  });
 
   final String title;
 
@@ -9,10 +17,13 @@ class Button extends StatelessWidget {
 
   final Widget? prefix;
 
+  final bool fullWidth;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = AppColor.watch(ref);
     final borderRadius = BorderRadius.circular(12);
-    final backgroundColor = Colors.blue;
+    final backgroundColor = colors.primary;
     final splashColor = Colors.black.withAlpha(45);
 
     return Material(
@@ -21,13 +32,15 @@ class Button extends StatelessWidget {
         borderRadius: borderRadius,
         splashColor: splashColor,
         child: Ink(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          width: fullWidth ? double.infinity : null,
+          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: borderRadius,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (prefix != null)
                 Padding(padding: EdgeInsets.only(right: 8), child: prefix!),
@@ -36,7 +49,8 @@ class Button extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: .w500,
+                  fontSize: 14,
                 ),
               ),
             ],

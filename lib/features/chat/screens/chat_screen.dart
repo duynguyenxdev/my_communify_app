@@ -33,9 +33,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
     socket.onConnect(_onConnect);
 
-    socket.onDisconnect((data) {
-      print('Socket has been disconnected with data $data');
-    });
+    socket.onDisconnect((data) {});
   }
 
   @override

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_communify/config/app_config.dart';
+import 'package:my_communify/core/theme/theme.dart';
+import 'package:my_communify/core/theme/theme_provider.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 import 'package:my_communify/navigation/router.dart';
 
@@ -22,12 +24,18 @@ class _AppState extends ConsumerState<App> {
         ? authenticatedRouter
         : unauthenticatedRouter;
 
+    final themeMode =
+        ref.watch(themeProvider.select((s) => s.value?.themeMode)) ?? .light;
+
     return MaterialApp.router(
       title: AppConfig.title,
       debugShowCheckedModeBanner: false,
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
+      themeMode: themeMode,
+      theme: themeData,
+      darkTheme: themeData,
     );
   }
 }
