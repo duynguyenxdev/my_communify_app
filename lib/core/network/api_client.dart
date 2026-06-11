@@ -70,7 +70,9 @@ class ApiClient {
     }
 
     if (error.type == .connectionError) {
-      return NetworkException('Can not connect to the server');
+      return NetworkException(
+        'Can not connect to the server, ${error.message}',
+      );
     }
 
     if (error.type == .badCertificate) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_communify/assets/assets.dart';
+import 'package:my_communify/config/env.dart';
 import 'package:my_communify/core/widgets/button/button.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 
@@ -42,6 +43,8 @@ class SignInScreen extends ConsumerWidget {
               title: 'Sign in with Google',
               prefix: SvgPicture.asset(Assets.icon.google),
             ),
+            SizedBox(height: 24),
+            Text('BASE_URL = ${Env.baseUrl}'),
           ],
         ),
       ),
