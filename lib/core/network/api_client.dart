@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:my_communify/core/models/api_error.dart';
 import 'package:my_communify/config/env.dart';
 import 'package:my_communify/core/models/exception.dart';
 import 'package:my_communify/core/models/result.dart';
@@ -80,8 +79,7 @@ class ApiClient {
 
     final data = error.response?.data;
     if (data != null && data is Map<String, dynamic>) {
-      final apiError = ApiError.fromJson(data);
-      return ApiException(message: apiError.message, code: apiError.code);
+      return ApiException.fromJson(data);
     }
 
     return NetworkException('Network error: ${error.message}');
