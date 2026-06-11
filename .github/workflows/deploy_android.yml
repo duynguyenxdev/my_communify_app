@@ -98,7 +98,7 @@ jobs:
           # Setup flutter dart define
           cd ${{ github.workspace }}
           echo "BASE_URL=${{ vars.BASE_URL }}" >> .env
-          echo "BASE_URL=${{ vars.WEB_SOCKET_URL }}" >> .env
+          echo "WEB_SOCKET_URL=${{ vars.WEB_SOCKET_URL }}" >> .env
           echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
           echo "GOOGLE_SERVER_CLIENT_ID=${{ secrets.GOOGLE_SERVER_CLIENT_ID }}" >> .env
 
