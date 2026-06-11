@@ -53,19 +53,26 @@ platform :ios do
     )
   end
 
-  desc "Sync ios signing (certificates & profiles)"
+  desc "Sync ios development signing (certificates & profiles)"
   lane :signing do
     match(
-      type: "appstore",
+      type: "development",
       readonly: true
     )
   end
 
-  desc "Generate ios signing credentials (certificates & profiles)"
-  lane :generate_signing do
+  desc "Generate ios app store signing credentials (certificates & profiles)"
+  lane :generate_signing do |options|
+    type = options[:type]
+
+    if type == nil
+      UI.user_error!("You must provide a profile type (appstore | development | adhoc)")
+    end
+
     match(
-      type: "appstore",
-      api_key_path: ENV["APP_STORE_CONNECT_API_KEY_PATH"]
+      type: type,
+      api_key_path: ENV["APP_STORE_CONNECT_API_KEY_PATH"],
+      force_for_new_devices: true
     )
   end
 

@@ -28,7 +28,10 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  await GoogleSignIn.instance.initialize(clientId: Env.googleClientId);
+  await GoogleSignIn.instance.initialize(
+    clientId: Env.googleClientId,
+    serverClientId: Env.googleServerClientId,
+  );
 
   runApp(ProviderScope(child: const App()));
 }

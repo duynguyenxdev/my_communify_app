@@ -22,7 +22,7 @@ class SignInScreen extends ConsumerWidget {
               builder: (context) {
                 return AlertDialog.adaptive(
                   title: Text('Error'),
-                  content: Text(error.message),
+                  content: Text('${error.message} (Code: ${error.code})'),
                 );
               },
             );

@@ -4,8 +4,17 @@
             "type": "dart",
             "request": "launch",
             "name": "Debug",
-            "args": ["--dart-define-from-file=.env.prod"],
+            "args": ["--dart-define-from-file=.env"],
             "flutterMode": "debug",
+            "debuggerType": "flutter",
+            "program": "lib/main.dart"
+        },
+        {
+            "type": "dart",
+            "request": "launch",
+            "name": "Release",
+            "args": ["--dart-define-from-file=.env.prod"],
+            "flutterMode": "release",
             "debuggerType": "flutter",
             "program": "lib/main.dart"
         }

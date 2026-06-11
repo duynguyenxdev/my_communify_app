@@ -10,4 +10,8 @@ abstract class Env {
   );
 
   static const googleClientId = String.fromEnvironment('GOOGLE_CLIENT_ID');
+
+  static const googleServerClientId = String.fromEnvironment(
+    'GOOGLE_SERVER_CLIENT_ID',
+  );
 }
