@@ -66,17 +66,21 @@ class ApiClient {
     ];
 
     if (networkErrors.contains(error.type)) {
-      return NetworkException('Server timeout');
+      return NetworkException('Server timeout', reason: .connectionTimeout);
     }
 
     if (error.type == .connectionError) {
       return NetworkException(
+        reason: .connectionError,
         'Can not connect to the server, ${error.message}',
       );
     }
 
     if (error.type == .badCertificate) {
-      return NetworkException('Invalid server certificate');
+      return SecurityException(
+        'Bad server certificate',
+        reason: .badCertificate,
+      );
     }
 
     final data = error.response?.data;

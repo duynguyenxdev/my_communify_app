@@ -30,8 +30,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       BottomBarItem(
         index: 0,
         selectedIndex: _currentIndex,
-        label: 'Messages',
-        iconPath: Assets.icon.messages,
+        label: 'Chat',
+        iconPath: Assets.icon.chat,
         onTap: _onTap,
       ),
       BottomBarItem(

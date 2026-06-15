@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_communify/assets/assets.dart';
+import 'package:my_communify/core/models/exception.dart';
 import 'package:my_communify/core/widgets/button/button.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 
@@ -13,15 +15,18 @@ class SignInScreen extends ConsumerWidget {
     ref.listen(authProvider, (prev, next) {
       next.whenOrNull(
         error: (error, stackTrace) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog.adaptive(
-                title: Text('Error'),
-                content: Text(error.toString()),
-              );
-            },
-          );
+          if (error is ApiException &&
+              error.code != GoogleSignInExceptionCode.canceled.name) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog.adaptive(
+                  title: Text('Error'),
+                  content: Text(error.toString()),
+                );
+              },
+            );
+          }
         },
       );
     });

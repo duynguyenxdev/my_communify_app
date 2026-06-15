@@ -1,3 +1,6 @@
+import 'package:my_communify/core/enums/network_error_reason.dart';
+import 'package:my_communify/core/enums/security_error_reason.dart';
+
 sealed class AppException implements Exception {
   final String message;
   AppException(this.message);
@@ -25,11 +28,24 @@ class ApiException extends AppException {
 }
 
 class NetworkException extends AppException {
-  NetworkException([super.message = 'Network error']);
+  NetworkException(super.message, {this.reason = .unknown});
+
+  final NetworkErrorReason reason;
 
   @override
   String toString() {
-    return 'NetworkException(message = $message)';
+    return 'NetworkException(reason = ${reason.name}, message = $message)';
+  }
+}
+
+class SecurityException extends AppException {
+  SecurityException(super.message, {this.reason = .unknown});
+
+  final SecurityErrorReason reason;
+
+  @override
+  String toString() {
+    return 'SecurityException(reason = ${reason.name}, message = $message)';
   }
 }
 

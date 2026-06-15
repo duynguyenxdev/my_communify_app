@@ -1,0 +1,1 @@
+enum SecurityErrorReason { badCertificate, unknown }

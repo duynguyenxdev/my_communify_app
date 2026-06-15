@@ -22,11 +22,12 @@ class Button extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = AppColor.watch(ref);
-    final borderRadius = BorderRadius.circular(12);
+    final borderRadius = BorderRadius.circular(32);
     final backgroundColor = colors.primary;
     final splashColor = Colors.black.withAlpha(45);
 
     return Material(
+      borderRadius: borderRadius,
       child: InkWell(
         onTap: onTap,
         borderRadius: borderRadius,

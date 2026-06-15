@@ -40,6 +40,7 @@ class BottomBarItem extends ConsumerWidget {
               SvgImage(
                 iconPath,
                 color: isSelected ? colors.primary : colors.textMuted,
+                height: 24,
               ),
               Text(
                 label,

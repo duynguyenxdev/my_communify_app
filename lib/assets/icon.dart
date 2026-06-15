@@ -7,4 +7,5 @@ class _IconAsset {
   final messages = 'assets/icons/ic_messages.svg';
   final settings = 'assets/icons/ic_settings.svg';
   final launcherForeground = 'assets/icons/ic_launcher_foreground.svg';
+  final chat = 'assets/icons/ic_chat.svg';
 }
