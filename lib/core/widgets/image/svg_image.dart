@@ -6,8 +6,8 @@ class SvgImage extends StatelessWidget {
     this.path, {
     super.key,
     this.color = Colors.black,
-    this.width,
-    this.height,
+    this.width = 24.0,
+    this.height = 24.0,
   });
 
   final String path;

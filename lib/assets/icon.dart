@@ -8,4 +8,5 @@ class _IconAsset {
   final settings = 'assets/icons/ic_settings.svg';
   final launcherForeground = 'assets/icons/ic_launcher_foreground.svg';
   final chat = 'assets/icons/ic_chat.svg';
+  final search = 'assets/icons/ic_search.svg';
 }

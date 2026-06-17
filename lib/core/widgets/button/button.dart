@@ -9,6 +9,7 @@ class Button extends ConsumerWidget {
     this.onTap,
     this.prefix,
     this.fullWidth = false,
+    this.enabled = true,
   });
 
   final String title;
@@ -19,24 +20,28 @@ class Button extends ConsumerWidget {
 
   final bool fullWidth;
 
+  final bool enabled;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = AppColor.watch(ref);
     final borderRadius = BorderRadius.circular(32);
     final backgroundColor = colors.primary;
-    final splashColor = Colors.black.withAlpha(45);
+    final splashColor = colors.primary.withAlpha(10);
 
     return Material(
       borderRadius: borderRadius,
       child: InkWell(
-        onTap: onTap,
+        onTap: () {
+          if (enabled) onTap?.call();
+        },
         borderRadius: borderRadius,
         splashColor: splashColor,
         child: Ink(
           width: fullWidth ? double.infinity : null,
           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           decoration: BoxDecoration(
-            color: backgroundColor,
+            color: enabled ? backgroundColor : backgroundColor.withAlpha(50),
             borderRadius: borderRadius,
           ),
           child: Row(

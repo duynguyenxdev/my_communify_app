@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:my_communify/core/theme/colors/light_color.dart';
 
 ThemeData get themeData => ThemeData(
   fontFamily: 'OpenSans',
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: lightColor.background,
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.white,
+    backgroundColor: lightColor.background,
     titleTextStyle: TextStyle(
-      color: Colors.black,
+      color: lightColor.textPrimary,
       fontWeight: FontWeight.w500,
       fontSize: 18,
     ),
     centerTitle: true,
+    shape: UnderlineInputBorder(
+      borderSide: BorderSide(color: lightColor.border, width: 0.5),
+    ),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Colors.green,
-    foregroundColor: Colors.white,
+    backgroundColor: lightColor.primary,
+    foregroundColor: lightColor.onPrimary,
     shape: CircleBorder(),
     elevation: 12,
-    splashColor: Colors.green.withAlpha(20),
+    splashColor: lightColor.primary.withAlpha(20),
   ),
   switchTheme: SwitchThemeData(
-    trackColor: WidgetStatePropertyAll(Colors.green),
+    trackColor: WidgetStatePropertyAll(lightColor.primary),
   ),
 );

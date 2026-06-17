@@ -1,4 +1,14 @@
-part of 'bottom_sheet_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+typedef BottomSheetBuilder = Widget? Function(BuildContext context);
+
+class BottomSheetOptions {
+  final String? title;
+  final bool isScrollControlled;
+
+  const BottomSheetOptions({this.title, this.isScrollControlled = true});
+}
 
 class BottomSheetWidget extends ConsumerWidget {
   const BottomSheetWidget({
@@ -10,9 +20,29 @@ class BottomSheetWidget extends ConsumerWidget {
   final BottomSheetOptions options;
   final Widget? content;
 
+  Future<T?> show<T>({
+    required BuildContext context,
+    BottomSheetBuilder? contentBuilder,
+  }) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: options.isScrollControlled,
+      builder: (context) {
+        return BottomSheetWidget(
+          options: options,
+          content:
+              content ?? contentBuilder?.call(context) ?? SizedBox.shrink(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewPadding = MediaQuery.of(context).viewPadding;
+    final mediaQuery = MediaQuery.of(context);
+    final viewPadding = mediaQuery.viewPadding;
+    final viewInsets = mediaQuery.viewInsets;
+    final contentPadding = 16.0;
 
     return Container(
       width: double.infinity,
@@ -24,9 +54,9 @@ class BottomSheetWidget extends ConsumerWidget {
         ),
       ),
       padding: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        bottom: viewPadding.bottom + 16,
+        left: contentPadding,
+        right: contentPadding,
+        bottom: viewPadding.bottom + viewInsets.bottom,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

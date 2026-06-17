@@ -17,7 +17,7 @@ class ThemeState {
     return ThemeState(themeMode: themeMode ?? this.themeMode);
   }
 
-  AppColor get colors => themeMode == .light ? LightColor() : LightColor();
+  AppColor get colors => themeMode == .light ? lightColor : lightColor;
 }
 
 class ThemeNotifier extends AsyncNotifier<ThemeState> {
