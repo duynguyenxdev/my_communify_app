@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_communify/core/theme/colors/app_color.dart';
 
-class Button extends ConsumerWidget {
-  const Button({
+class CommonButton extends ConsumerWidget {
+  const CommonButton({
     super.key,
     required this.title,
     this.onTap,

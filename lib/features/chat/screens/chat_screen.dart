@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:my_communify/core/di/di.dart';
 import 'package:my_communify/core/network/socket_client.dart';
+import 'package:my_communify/core/theme/colors/app_color.dart';
+import 'package:my_communify/core/widgets/gesture/unfocusable.dart';
+import 'package:my_communify/core/widgets/input/text_field.dart';
+import 'package:my_communify/core/widgets/layout/screen.dart';
 import 'package:my_communify/features/auth/models/user.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 import 'package:my_communify/features/chat/models/chat_message.dart';
@@ -80,15 +85,21 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.of(context).padding;
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: Text(widget.receiver.fullName ?? ''),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: EdgeInsets.only(bottom: padding.bottom),
+    final colors = AppColor.watch(ref);
+
+    return Unfocusable(
+      child: CommonScreen(
+        titleWidget: Row(
+          mainAxisSize: .min,
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(widget.receiver.avatar ?? ''),
+              maxRadius: 16,
+            ),
+            Gap(4),
+            Text(widget.receiver.fullName ?? ''),
+          ],
+        ),
         child: Column(
           children: [
             Expanded(
@@ -101,30 +112,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 },
               ),
             ),
-            TextField(
+            CommonTextField(
               controller: _textController,
-              autocorrect: false,
-              onTapOutside: (event) {
-                if (FocusManager.instance.primaryFocus?.hasFocus == true) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                }
-              },
-              decoration: InputDecoration(
-                fillColor: Colors.grey.shade200,
-                filled: true,
-                border: InputBorder.none,
-                hintText: 'Enter message...',
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    _sendMessage(_textController.text);
-                  },
-                  icon: Icon(Icons.send),
-                ),
-                suffixIconColor: Colors.blue,
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 8,
-                ),
+              placeholder: 'Enter message...',
+              suffix: GestureDetector(
+                onTap: () => _sendMessage(_textController.text),
+                child: Icon(Icons.send, color: colors.primary),
               ),
               onSubmitted: _sendMessage,
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_communify/core/theme/colors/app_color.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
 import 'package:my_communify/features/chat/models/chat_message.dart';
 import 'package:my_communify/features/chat/widgets/chat_message_box.dart';
@@ -23,15 +24,16 @@ class _ChatMessageListState extends ConsumerState<ChatMessageList> {
     return currentUserId == message.senderId;
   }
 
-  Widget _itemBuilder(BuildContext context, int index) {
+  Widget _itemBuilder(AppColor colors, BuildContext context, int index) {
     final message = widget.messages[index];
     final isMyMessage = _isMyMessage(message);
     final mainAxisAlignment = isMyMessage
         ? MainAxisAlignment.end
         : MainAxisAlignment.start;
     final backgroundColor = isMyMessage
-        ? Colors.blue.shade100
-        : Colors.grey.shade200;
+        ? colors.primary
+        : colors.backgroundMuted;
+    final textColor = isMyMessage ? colors.onPrimary : colors.textPrimary;
 
     return Row(
       mainAxisAlignment: mainAxisAlignment,
@@ -40,6 +42,7 @@ class _ChatMessageListState extends ConsumerState<ChatMessageList> {
           key: ValueKey(message.id),
           message: message,
           backgroundColor: backgroundColor,
+          textColor: textColor,
         ),
       ],
     );
@@ -70,12 +73,14 @@ class _ChatMessageListState extends ConsumerState<ChatMessageList> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColor.watch(ref);
+
     return ListView.separated(
       controller: _scrollController,
       itemCount: widget.messages.length,
       padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
       separatorBuilder: _separatorBuilder,
-      itemBuilder: _itemBuilder,
+      itemBuilder: (context, index) => _itemBuilder(colors, context, index),
     );
   }
 }

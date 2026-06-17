@@ -11,7 +11,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authProvider.select((state) => state.value?.user));
 
-    return Screen(
+    return CommonScreen(
       title: 'Profile',
       child: SizedBox.expand(
         child: Column(
@@ -29,7 +29,7 @@ class ProfileScreen extends ConsumerWidget {
             SizedBox(height: 4),
             Text('${user?.email}', style: TextStyle(fontWeight: .w300)),
             Spacer(),
-            Button(
+            CommonButton(
               title: 'Logout',
               fullWidth: true,
               onTap: () async {

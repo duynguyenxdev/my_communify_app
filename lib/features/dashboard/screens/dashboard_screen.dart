@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_communify/assets/assets.dart';
 import 'package:my_communify/features/auth/providers/auth_provider.dart';
-import 'package:my_communify/features/conversations/screens/conversations_screen.dart';
-import 'package:my_communify/features/dashboard/widgets/bottom_bar.dart';
-import 'package:my_communify/features/dashboard/widgets/bottom_bar_item.dart';
-import 'package:my_communify/features/settings/screens/settings_screen.dart';
+import 'package:my_communify/features/conversations/widgets/conversation_list.dart';
+import 'package:my_communify/features/conversations/widgets/conversations_empty.dart';
+import 'package:my_communify/mocks/conversation.dart';
 import 'package:my_communify/navigation/nav_path.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -17,33 +15,6 @@ class DashboardScreen extends ConsumerStatefulWidget {
 }
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
-  int _currentIndex = 0;
-
-  void _onTap(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
-  List<BottomBarItem> _getBottomBarItems() {
-    return [
-      BottomBarItem(
-        index: 0,
-        selectedIndex: _currentIndex,
-        label: 'Chat',
-        iconPath: Assets.icon.chat,
-        onTap: _onTap,
-      ),
-      BottomBarItem(
-        index: 1,
-        selectedIndex: _currentIndex,
-        label: 'Settings',
-        iconPath: Assets.icon.settings,
-        onTap: _onTap,
-      ),
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(authProvider.select((s) => s.value?.user));
@@ -63,11 +34,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           ),
         ),
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: [ConversationsScreen(), SettingsScreen()],
-      ),
-      bottomNavigationBar: BottomBar(children: _getBottomBarItems()),
+      body: mockConversations.isEmpty
+          ? ConversationsEmpty()
+          : ConversationList(conversations: mockConversations),
     );
   }
 }

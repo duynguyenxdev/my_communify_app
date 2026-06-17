@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-typedef BottomSheetBuilder = Widget? Function(BuildContext context);
-
-class BottomSheetOptions {
+class CommonBottomSheetOptions {
   final String? title;
   final bool isScrollControlled;
 
-  const BottomSheetOptions({this.title, this.isScrollControlled = true});
+  const CommonBottomSheetOptions({this.title, this.isScrollControlled = true});
 }
 
-class BottomSheetWidget extends ConsumerWidget {
-  const BottomSheetWidget({
+class CommonBottomSheet extends ConsumerWidget {
+  const CommonBottomSheet({
     super.key,
-    this.options = const BottomSheetOptions(),
+    this.options = const CommonBottomSheetOptions(),
     this.content,
   });
 
-  final BottomSheetOptions options;
+  final CommonBottomSheetOptions options;
   final Widget? content;
 
-  Future<T?> show<T>({
+  static Future<T?> show<T>({
     required BuildContext context,
-    BottomSheetBuilder? contentBuilder,
+    CommonBottomSheetOptions options = const CommonBottomSheetOptions(),
+    Widget? Function(BuildContext context)? contentBuilder,
+    Widget? content,
   }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: options.isScrollControlled,
       builder: (context) {
-        return BottomSheetWidget(
+        return CommonBottomSheet(
           options: options,
           content:
               content ?? contentBuilder?.call(context) ?? SizedBox.shrink(),

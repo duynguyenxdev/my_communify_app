@@ -40,7 +40,7 @@ class SignInScreen extends ConsumerWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             SizedBox(height: 24),
-            Button(
+            CommonButton(
               onTap: () async {
                 await ref.read(authProvider.notifier).signInWithGoogle();
               },

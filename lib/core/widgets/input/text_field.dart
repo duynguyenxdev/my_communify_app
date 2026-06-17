@@ -3,32 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_communify/core/theme/colors/app_color.dart';
 
-class Input extends ConsumerStatefulWidget {
-  const Input({
+typedef OnValueChanged = void Function(String value);
+
+class CommonTextField extends ConsumerStatefulWidget {
+  const CommonTextField({
     super.key,
     this.placeholder,
     this.suffix,
     this.controller,
     this.onChanged,
+    this.onSubmitted,
+    this.autocorrect = false,
   });
 
   final String? placeholder;
   final Widget? suffix;
   final TextEditingController? controller;
-  final void Function(String value)? onChanged;
+  final OnValueChanged? onChanged;
+  final OnValueChanged? onSubmitted;
+  final bool autocorrect;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _InputState();
 }
 
-class _InputState extends ConsumerState<Input> {
-  void _onTapOutside() {
-    final primaryFocus = FocusManager.instance.primaryFocus;
-    if (primaryFocus != null && primaryFocus.hasFocus) {
-      primaryFocus.unfocus();
-    }
-  }
-
+class _InputState extends ConsumerState<CommonTextField> {
   @override
   Widget build(BuildContext context) {
     final colors = AppColor.watch(ref);
@@ -47,7 +46,8 @@ class _InputState extends ConsumerState<Input> {
               child: TextField(
                 controller: widget.controller,
                 onChanged: widget.onChanged,
-                onTapOutside: (_) => _onTapOutside(),
+                onSubmitted: widget.onSubmitted,
+                autocorrect: widget.autocorrect,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(
                     left: 12,

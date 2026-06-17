@@ -18,7 +18,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final themeMode =
         ref.watch(themeProvider.select((s) => s.value?.themeMode)) ?? .light;
 
-    return Screen(
+    return CommonScreen(
       showAppBar: false,
       child: Column(
         children: [
