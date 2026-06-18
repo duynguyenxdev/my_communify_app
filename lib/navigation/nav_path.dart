@@ -1,5 +1,4 @@
 abstract class NavPath {
-  static const splash = '/splash';
   static const signIn = '/sign-in';
   static const profile = '/profile';
   static const dashboard = '/dashboard';

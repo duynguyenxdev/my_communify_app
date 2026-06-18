@@ -12,14 +12,14 @@ final routerProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: NavPath.splash,
+    initialLocation: NavPath.signIn,
     routes: routes,
     refreshListenable: authNotifier,
     redirect: (context, state) {
       final authState = ref.read(authProvider).value ?? AuthState();
 
       if (authState.status == .initial) {
-        return NavPath.splash;
+        return NavPath.signIn;
       }
 
       final loggedIn = authState.isAuthenticated;

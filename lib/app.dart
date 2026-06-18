@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_communify/config/app_config.dart';
 import 'package:my_communify/core/theme/theme.dart';
 import 'package:my_communify/core/theme/theme_provider.dart';
+import 'package:my_communify/features/auth/providers/auth_provider.dart';
 import 'package:my_communify/navigation/router.dart';
 
 class App extends ConsumerStatefulWidget {
@@ -13,6 +15,14 @@ class App extends ConsumerStatefulWidget {
 }
 
 class _AppState extends ConsumerState<App> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(authProvider.notifier).authenticateLocalToken().then((_) {
+      FlutterNativeSplash.remove();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeMode =
