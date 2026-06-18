@@ -38,6 +38,7 @@ class AuthNotififer extends AsyncNotifier<AuthState> implements Listenable {
   }
 
   Future<void> authenticateLocalToken() async {
+    await Future.delayed(const Duration(seconds: 3));
     final accessToken = await _secureStorage.get(SecureStorageKey.accessToken);
 
     if (accessToken == null) {
